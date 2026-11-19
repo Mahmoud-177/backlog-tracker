@@ -1,0 +1,1297 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary Meta Tags -->
+    <title>تراكماتي | My Backlog — لمّ المواد بدون تشتيت</title>
+    <meta
+      name="title"
+      content="تراكماتي | My Backlog — لمّ المواد بدون تشتيت"
+    />
+    <meta
+      name="description"
+      content="أداة بسيطة وذكية تساعدك تلم المحاضرات والحل المتراكم عليك في كل مادة بدون تشتيت وبنظام إنجاز حقيقي."
+    />
+    <meta name="theme-color" content="#5A322A" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon_icon.svg" type="image/svg+xml" />
+
+    <!-- Open Graph / Facebook / WhatsApp / Discord -->
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="تراكماتي | My Backlog — لمّ المواد بدون تشتيت"
+    />
+    <meta
+      property="og:description"
+      content="سجّل موادك، وضيف جوا كل مادة المحاضرات والحل اللي متراكم عليك. مفيش زرار مسح جوا المادة — علّم صح لما تخلص!"
+    />
+    <meta
+      property="og:image"
+      content="https://backlog-tracker177.vercel.app/og-image.jpg"
+    />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="تراكماتي | My Backlog — لمّ المواد بدون تشتيت"
+    />
+    <meta
+      name="twitter:description"
+      content="سجّل موادك، وضيف جوا كل مادة المحاضرات والحل اللي متراكم عليك. مفيش زرار مسح جوا المادة — علّم صح لما تخلص!"
+    />
+    <meta
+      name="twitter:image"
+      content="https://backlog-tracker177.vercel.app/og-image.jpg"
+    />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Cairo (Arabic) & Plus Jakarta Sans (English) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              stoneBg: "#CCCDC7",
+              espresso: "#5A322A",
+              terracotta: "#BC7B6F",
+              blush: "#E4A499",
+              slateCool: "#718A9E",
+              cardSurface: "#F5F5F3",
+              // Dark Mode Warm Earthy Palette
+              darkBg: "#1E1715",
+              darkSurface: "#2C221F",
+              darkCream: "#EDEAE6",
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      /* Dynamic Font Switching based on language direction */
+      html[lang="ar"] body {
+        font-family: "Cairo", sans-serif;
+      }
+      html[lang="en"] body {
+        font-family: "Plus Jakarta Sans", sans-serif;
+      }
+
+      body {
+        background-color: #cccdc7;
+        color: #5a322a;
+        transition:
+          background-color 0.3s ease,
+          color 0.3s ease;
+      }
+
+      html.dark body {
+        background-color: #1e1715;
+        color: #edeae6;
+      }
+
+      /* Custom Checkbox Styling */
+      .custom-checkbox {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 1.5rem;
+        height: 1.5rem;
+        border: 2px solid #bc7b6f;
+        border-radius: 0.45rem;
+        background-color: #f5f5f3;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        flex-shrink: 0;
+      }
+
+      html.dark .custom-checkbox {
+        background-color: #1e1715;
+        border-color: #bc7b6f;
+      }
+
+      .custom-checkbox:hover {
+        border-color: #5a322a;
+        transform: scale(1.05);
+      }
+
+      html.dark .custom-checkbox:hover {
+        border-color: #e4a499;
+      }
+
+      .custom-checkbox:checked {
+        background-color: #718a9e;
+        border-color: #718a9e;
+      }
+
+      .custom-checkbox:checked::after {
+        content: "";
+        width: 0.4rem;
+        height: 0.75rem;
+        border: solid #f5f5f3;
+        border-width: 0 2.5px 2.5px 0;
+        transform: rotate(45deg);
+        margin-bottom: 2px;
+      }
+
+      /* Smooth View Transition */
+      .view-animate {
+        animation: fadeSlideIn 0.25s ease-out forwards;
+      }
+
+      @keyframes fadeSlideIn {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #cccdc7;
+      }
+      html.dark ::-webkit-scrollbar-track {
+        background: #1e1715;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #bc7b6f;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #5a322a;
+      }
+      html.dark ::-webkit-scrollbar-thumb:hover {
+        background: #e4a499;
+      }
+    </style>
+  </head>
+  <body
+    class="min-h-screen flex flex-col selection:bg-blush selection:text-espresso"
+  >
+    <!-- Top Navigation Bar -->
+    <header
+      class="sticky top-0 z-30 bg-cardSurface/90 dark:bg-darkSurface/90 backdrop-blur-md border-b border-espresso/15 dark:border-darkCream/15 shadow-sm transition-colors duration-300"
+    >
+      <div
+        class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between"
+      >
+        <!-- Brand / Logo -->
+        <div
+          onclick="navigateToDashboard()"
+          class="flex items-center gap-3 cursor-pointer group"
+        >
+          <div
+            class="w-10 h-10 rounded-xl bg-espresso dark:bg-terracotta text-cardSurface dark:text-darkBg flex items-center justify-center shadow-sm group-hover:bg-terracotta dark:group-hover:bg-blush transition-colors"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-6 h-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2.2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+              />
+            </svg>
+          </div>
+          <div>
+            <h1
+              id="nav-title"
+              class="text-xl font-extrabold tracking-tight text-espresso dark:text-darkCream leading-none"
+            >
+              تراكماتي
+            </h1>
+            <p
+              id="nav-subtitle"
+              class="text-xs font-medium text-espresso/70 dark:text-darkCream/70 mt-0.5"
+            >
+              لمّ المواد بدون تشتيت
+            </p>
+          </div>
+        </div>
+
+        <!-- Header Controls: Dark Mode Toggle + Language Switcher -->
+        <div class="flex items-center gap-2">
+          <!-- Dark Mode Toggle Button -->
+          <button
+            id="theme-toggle-btn"
+            onclick="toggleTheme()"
+            aria-label="Toggle Dark Mode"
+            class="p-2.5 rounded-xl bg-stoneBg/60 dark:bg-darkBg/80 hover:bg-blush/50 dark:hover:bg-terracotta/25 text-espresso dark:text-blush border border-espresso/20 dark:border-darkCream/15 transition-all active:scale-95"
+          >
+            <!-- Sun Icon (Shown in Dark Mode) -->
+            <svg
+              id="sun-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              class="hidden w-4 h-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2.2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+              />
+            </svg>
+            <!-- Moon Icon (Shown in Light Mode) -->
+            <svg
+              id="moon-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-4 h-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2.2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+              />
+            </svg>
+          </button>
+
+          <!-- Language Toggle Button -->
+          <button
+            id="lang-toggle-btn"
+            onclick="toggleLanguage()"
+            class="flex items-center gap-2 px-4 py-2 rounded-xl bg-stoneBg/60 dark:bg-darkBg/80 hover:bg-blush/50 dark:hover:bg-terracotta/25 text-espresso dark:text-darkCream font-bold text-sm border border-espresso/20 dark:border-darkCream/15 transition-all active:scale-95"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-4 h-4 text-espresso dark:text-terracotta"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"
+              />
+            </svg>
+            <span id="lang-btn-text">English</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 py-8">
+      <!-- ========================================== -->
+      <!-- VIEW 1: MAIN DASHBOARD (SUBJECTS GRID)     -->
+      <!-- ========================================== -->
+      <section id="dashboard-view" class="view-animate space-y-6">
+        <!-- Top Summary & Add Subject Bar -->
+        <div
+          class="bg-cardSurface dark:bg-darkSurface rounded-2xl p-5 sm:p-6 shadow-sm border border-espresso/15 dark:border-darkCream/15 flex flex-col md:flex-row md:items-center justify-between gap-4 transition-colors duration-300"
+        >
+          <div class="space-y-1">
+            <h2
+              id="dash-heading"
+              class="text-2xl font-extrabold text-espresso dark:text-darkCream"
+            >
+              المواد الدراسية
+            </h2>
+            <div
+              id="dash-stats"
+              class="flex flex-wrap items-center gap-3 text-sm font-semibold text-espresso/80 dark:text-darkCream/85"
+            >
+              <!-- Populated dynamically -->
+            </div>
+          </div>
+
+          <!-- Add Subject Form / Trigger -->
+          <form
+            id="add-subject-form"
+            onsubmit="handleAddSubject(event)"
+            class="flex items-center gap-2 w-full md:w-auto"
+          >
+            <input
+              type="text"
+              id="new-subject-input"
+              required
+              maxlength="45"
+              placeholder="اسم المادة (مثلاً: فيزياء، تفاضل...)"
+              class="flex-1 md:w-64 px-4 py-2.5 rounded-xl bg-stoneBg/40 dark:bg-darkBg/90 border border-espresso/25 dark:border-darkCream/20 text-espresso dark:text-darkCream placeholder-espresso/50 dark:placeholder-darkCream/45 font-semibold text-sm focus:outline-none focus:border-espresso dark:focus:border-terracotta focus:bg-white dark:focus:bg-darkBg transition-all"
+            />
+            <button
+              type="submit"
+              class="px-5 py-2.5 rounded-xl bg-espresso dark:bg-terracotta hover:bg-terracotta dark:hover:bg-blush text-cardSurface dark:text-darkBg font-bold text-sm shadow-sm transition-all active:scale-95 flex items-center gap-1.5 whitespace-nowrap"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-4 h-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2.5"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M12 4v16m8-8H4"
+                />
+              </svg>
+              <span id="add-subject-btn-text">إضافة مادة</span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Subjects Grid -->
+        <div
+          id="subjects-grid"
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5"
+        >
+          <!-- Subject Cards injected here -->
+        </div>
+
+        <!-- Empty State (Shown when 0 subjects) -->
+        <div
+          id="empty-subjects-state"
+          class="hidden bg-cardSurface/80 dark:bg-darkSurface/80 rounded-2xl p-10 text-center border-2 border-dashed border-espresso/25 dark:border-darkCream/20 space-y-3 transition-colors duration-300"
+        >
+          <div
+            class="w-14 h-14 rounded-2xl bg-blush/40 dark:bg-terracotta/20 text-espresso dark:text-blush mx-auto flex items-center justify-center"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-7 h-7"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+              />
+            </svg>
+          </div>
+          <h3
+            id="empty-state-title"
+            class="text-lg font-bold text-espresso dark:text-darkCream"
+          >
+            مفيش مواد مضافة لسه
+          </h3>
+          <p
+            id="empty-state-desc"
+            class="text-sm text-espresso/75 dark:text-darkCream/70 max-w-md mx-auto"
+          >
+            ابدأ بإضافة موادك الدراسية من الخانة اللي فوق عشان تسجل المحاضرات
+            والحل المتراكم عليك.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- VIEW 2: SUBJECT DETAIL PAGE (SPA FEEL)     -->
+      <!-- ========================================== -->
+      <section id="detail-view" class="hidden view-animate space-y-6">
+        <!-- Detail Top Bar -->
+        <div
+          class="bg-cardSurface dark:bg-darkSurface rounded-2xl p-5 sm:p-6 shadow-sm border border-espresso/15 dark:border-darkCream/15 flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-colors duration-300"
+        >
+          <div class="flex items-center gap-3 sm:gap-4">
+            <button
+              onclick="navigateToDashboard()"
+              class="px-3.5 py-2 rounded-xl bg-stoneBg/60 dark:bg-darkBg/80 hover:bg-blush/60 dark:hover:bg-terracotta/25 text-espresso dark:text-darkCream font-bold text-sm border border-espresso/20 dark:border-darkCream/15 transition-all active:scale-95 flex items-center gap-1.5"
+            >
+              <svg
+                id="back-arrow-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-4 h-4 transition-transform"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2.5"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M14 5l7 7m0 0l-7 7m7-7H3"
+                />
+              </svg>
+              <span id="back-btn-text">رجوع للمواد</span>
+            </button>
+            <div>
+              <h2
+                id="detail-subject-title"
+                class="text-2xl font-extrabold text-espresso dark:text-darkCream"
+              >
+                اسم المادة
+              </h2>
+              <div id="detail-status-badge-container" class="mt-1">
+                <!-- Status badge injected here -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Rule Reminder Pill -->
+          <div
+            class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blush/30 dark:bg-terracotta/15 border border-terracotta/30 dark:border-terracotta/30 text-espresso dark:text-blush text-xs font-bold self-start sm:self-center"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-4 h-4 text-terracotta dark:text-blush shrink-0"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <span id="no-delete-hint"
+              >مفيش مسح جوا المادة — علّم صح لما تخلص!</span
+            >
+          </div>
+        </div>
+
+        <!-- Two-Column Workspace: Accumulated Lectures & Accumulated Practice -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <!-- SECTION A: ACCUMULATED LECTURES -->
+          <div
+            class="bg-cardSurface dark:bg-darkSurface rounded-2xl p-5 sm:p-6 shadow-sm border border-espresso/15 dark:border-darkCream/15 flex flex-col transition-colors duration-300"
+          >
+            <div
+              class="flex items-center justify-between pb-4 border-b border-espresso/10 dark:border-darkCream/10"
+            >
+              <div class="flex items-center gap-2.5">
+                <span class="w-3 h-3 rounded-full bg-terracotta"></span>
+                <h3
+                  id="lectures-section-title"
+                  class="text-lg font-extrabold text-espresso dark:text-darkCream"
+                >
+                  المحاضرات المتراكمة
+                </h3>
+              </div>
+              <span
+                id="lectures-counter"
+                class="px-3 py-1 rounded-lg bg-stoneBg/60 dark:bg-darkBg/90 text-espresso dark:text-darkCream text-xs font-extrabold"
+              >
+                0 / 0
+              </span>
+            </div>
+
+            <!-- Add Lecture Input -->
+            <form
+              onsubmit="handleAddItem(event, 'lectures')"
+              class="mt-4 flex items-center gap-2"
+            >
+              <input
+                type="text"
+                id="lecture-input"
+                required
+                maxlength="60"
+                placeholder="مثلاً: محاضرة 4 - التكامل..."
+                class="flex-1 px-3.5 py-2.5 rounded-xl bg-stoneBg/40 dark:bg-darkBg/90 border border-espresso/20 dark:border-darkCream/20 text-espresso dark:text-darkCream placeholder-espresso/50 dark:placeholder-darkCream/45 text-sm font-semibold focus:outline-none focus:border-terracotta focus:bg-white dark:focus:bg-darkBg transition-all"
+              />
+              <button
+                type="submit"
+                class="px-4 py-2.5 rounded-xl bg-terracotta hover:bg-espresso dark:hover:bg-blush text-cardSurface dark:text-darkBg font-bold text-sm transition-all active:scale-95 flex items-center gap-1 shrink-0"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-4 h-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M12 4v16m8-8H4"
+                  />
+                </svg>
+                <span class="add-item-btn-text">إضافة</span>
+              </button>
+            </form>
+
+            <!-- Lectures List (NO DELETE BUTTONS) -->
+            <ul id="lectures-list" class="mt-4 space-y-2.5 flex-1">
+              <!-- Items injected here -->
+            </ul>
+          </div>
+
+          <!-- SECTION B: ACCUMULATED PRACTICE / SHEETS -->
+          <div
+            class="bg-cardSurface dark:bg-darkSurface rounded-2xl p-5 sm:p-6 shadow-sm border border-espresso/15 dark:border-darkCream/15 flex flex-col transition-colors duration-300"
+          >
+            <div
+              class="flex items-center justify-between pb-4 border-b border-espresso/10 dark:border-darkCream/10"
+            >
+              <div class="flex items-center gap-2.5">
+                <span class="w-3 h-3 rounded-full bg-slateCool"></span>
+                <h3
+                  id="practice-section-title"
+                  class="text-lg font-extrabold text-espresso dark:text-darkCream"
+                >
+                  الحل المتراكم
+                </h3>
+              </div>
+              <span
+                id="practice-counter"
+                class="px-3 py-1 rounded-lg bg-stoneBg/60 dark:bg-darkBg/90 text-espresso dark:text-darkCream text-xs font-extrabold"
+              >
+                0 / 0
+              </span>
+            </div>
+
+            <!-- Add Practice Input -->
+            <form
+              onsubmit="handleAddItem(event, 'practice')"
+              class="mt-4 flex items-center gap-2"
+            >
+              <input
+                type="text"
+                id="practice-input"
+                required
+                maxlength="60"
+                placeholder="مثلاً: شيت 2 أو حل أسئلة الدرس..."
+                class="flex-1 px-3.5 py-2.5 rounded-xl bg-stoneBg/40 dark:bg-darkBg/90 border border-espresso/20 dark:border-darkCream/20 text-espresso dark:text-darkCream placeholder-espresso/50 dark:placeholder-darkCream/45 text-sm font-semibold focus:outline-none focus:border-slateCool focus:bg-white dark:focus:bg-darkBg transition-all"
+              />
+              <button
+                type="submit"
+                class="px-4 py-2.5 rounded-xl bg-terracotta hover:bg-espresso dark:hover:bg-blush text-cardSurface dark:text-darkBg font-bold text-sm transition-all active:scale-95 flex items-center gap-1 shrink-0"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-4 h-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M12 4v16m8-8H4"
+                  />
+                </svg>
+                <span class="add-item-btn-text">إضافة</span>
+              </button>
+            </form>
+
+            <!-- Practice List (NO DELETE BUTTONS) -->
+            <ul id="practice-list" class="mt-4 space-y-2.5 flex-1">
+              <!-- Items injected here -->
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Custom Confirmation Modal (Replaces native confirm()) -->
+    <div
+      id="confirm-modal"
+      class="hidden fixed inset-0 z-50 bg-espresso/50 dark:bg-black/70 backdrop-blur-xs flex items-center justify-center p-4"
+    >
+      <div
+        class="bg-cardSurface dark:bg-darkSurface rounded-2xl max-w-sm w-full p-6 shadow-xl border border-espresso/20 dark:border-darkCream/20 view-animate space-y-4"
+      >
+        <div class="flex items-center gap-3">
+          <div
+            class="w-10 h-10 rounded-xl bg-blush/50 dark:bg-terracotta/25 text-espresso dark:text-blush flex items-center justify-center shrink-0"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-5 h-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2.2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+              />
+            </svg>
+          </div>
+          <h3
+            id="modal-title"
+            class="text-lg font-extrabold text-espresso dark:text-darkCream"
+          >
+            حذف المادة؟
+          </h3>
+        </div>
+        <p
+          id="modal-desc"
+          class="text-sm text-espresso/80 dark:text-darkCream/80 leading-relaxed"
+        >
+          هل أنت متأكد إنك عايز تحذف المادة دي بكل المحاضرات والحل اللي جواها؟
+        </p>
+        <div class="flex items-center justify-end gap-2 pt-2">
+          <button
+            onclick="closeConfirmModal()"
+            id="modal-cancel-btn"
+            class="px-4 py-2 rounded-xl bg-stoneBg/70 dark:bg-darkBg hover:bg-stoneBg dark:hover:bg-darkBg/70 text-espresso dark:text-darkCream font-bold text-sm transition-colors"
+          >
+            إلغاء
+          </button>
+          <button
+            onclick="confirmRemoveSubject()"
+            id="modal-confirm-btn"
+            class="px-4 py-2 rounded-xl bg-espresso dark:bg-terracotta hover:bg-terracotta dark:hover:bg-blush text-cardSurface dark:text-darkBg font-bold text-sm transition-colors"
+          >
+            نعم، احذف المادة
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer
+      class="py-5 text-center text-xs font-semibold text-espresso/65 dark:text-darkCream/55"
+    >
+      <span id="footer-text"
+        >بياناتك محفوظة تلقائياً على جهازك • بالتوفيق في لمّ المنهج</span
+      >
+    </footer>
+
+    <script>
+      // ==========================================
+      // 1. TRANSLATIONS & DICTIONARY (AR / EN)
+      // ==========================================
+      const i18n = {
+        ar: {
+          dir: "rtl",
+          navTitle: "تراكماتي",
+          navSubtitle: "لمّ المواد بدون تشتيت",
+          langBtn: "English",
+          dashHeading: "المواد الدراسية",
+          subjectPlaceholder: "اسم المادة (مثلاً: فيزياء، تفاضل...)",
+          addSubjectBtn: "إضافة مادة",
+          noBacklog: "لا تراكمات",
+          pendingPrefix: "متراكم:",
+          lectureSingular: "محاضرة",
+          lecturePlural: "محاضرات",
+          practiceSingular: "حل",
+          practicePlural: "حل",
+          removeSubjectTooltip: "حذف المادة",
+          emptyTitle: "مفيش مواد مضافة لسه",
+          emptyDesc:
+            "ابدأ بإضافة موادك الدراسية من الخانة اللي فوق عشان تسجل المحاضرات والحل المتراكم عليك.",
+          backBtn: "رجوع للمواد",
+          noDeleteHint: "مفيش مسح جوا المادة — علّم صح لما تخلص!",
+          lecturesTitle: "المحاضرات المتراكمة",
+          practiceTitle: "الحل المتراكم",
+          lecturePlaceholder: "مثلاً: محاضرة 4 - التكامل...",
+          practicePlaceholder: "مثلاً: شيت 2 أو حل أسئلة الدرس...",
+          addItemBtn: "إضافة",
+          emptyLectures: "لا توجد محاضرات متراكمة حالياً",
+          emptyPractice: "لا يوجد حل متراكم حالياً",
+          completedLabel: "مكتمل",
+          modalTitle: "حذف المادة؟",
+          modalDesc: 'هل أنت متأكد إنك عايز تحذف مادة "{name}" بكل تفاصيلها؟',
+          modalCancel: "إلغاء",
+          modalConfirm: "نعم، احذف المادة",
+          footerText:
+            "بياناتك محفوظة تلقائياً على جهازك • بالتوفيق في لمّ المنهج",
+          statsSubjects: "المواد:",
+          statsPendingLectures: "محاضرات متراكمة:",
+          statsPendingPractice: "حل متراكم:",
+          openSubjectHint: "اضغط لفتح التفاصيل",
+          themeToDark: "الوضع الليلي",
+          themeToLight: "الوضع النهاري",
+        },
+        en: {
+          dir: "ltr",
+          navTitle: "My Backlog",
+          navSubtitle: "Distraction-free study catch-up",
+          langBtn: "العربية",
+          dashHeading: "My Subjects",
+          subjectPlaceholder: "Subject name (e.g., Calculus, Anatomy...)",
+          addSubjectBtn: "Add Subject",
+          noBacklog: "No Backlog",
+          pendingPrefix: "Pending:",
+          lectureSingular: "Lecture",
+          lecturePlural: "Lectures",
+          practiceSingular: "Practice",
+          practicePlural: "Practice",
+          removeSubjectTooltip: "Remove Subject",
+          emptyTitle: "No subjects added yet",
+          emptyDesc:
+            "Add your subjects above to start tracking accumulated lectures and practice sheets.",
+          backBtn: "Back to Subjects",
+          noDeleteHint: "No delete inside — check the box when done!",
+          lecturesTitle: "Accumulated Lectures",
+          practiceTitle: "Accumulated Practice",
+          lecturePlaceholder: "e.g., Lecture 4 - Integration...",
+          practicePlaceholder: "e.g., Sheet 2 or Chapter Problems...",
+          addItemBtn: "Add",
+          emptyLectures: "No accumulated lectures yet",
+          emptyPractice: "No accumulated practice yet",
+          completedLabel: "Done",
+          modalTitle: "Remove Subject?",
+          modalDesc:
+            'Are you sure you want to remove "{name}" and all its items?',
+          modalCancel: "Cancel",
+          modalConfirm: "Yes, Remove",
+          footerText:
+            "Data is saved automatically on your device • You got this!",
+          statsSubjects: "Subjects:",
+          statsPendingLectures: "Pending Lectures:",
+          statsPendingPractice: "Pending Practice:",
+          openSubjectHint: "Click to open details",
+          themeToDark: "Dark Mode",
+          themeToLight: "Light Mode",
+        },
+      };
+
+      // ==========================================
+      // 2. APPLICATION STATE, THEME & STORAGE
+      // ==========================================
+      const STORAGE_KEY = "tarakomati_catchup_data_v1";
+      const LANG_KEY = "tarakomati_lang_v1";
+      const THEME_KEY = "tarakomati_theme_v1";
+
+      let currentLang = localStorage.getItem(LANG_KEY) || "ar";
+      let currentTheme =
+        localStorage.getItem(THEME_KEY) ||
+        (window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light");
+      let currentView = "dashboard"; // 'dashboard' | 'detail'
+      let activeSubjectId = null;
+      let subjectIdToDelete = null;
+
+      function applyThemeUI() {
+        const isDark = currentTheme === "dark";
+        const htmlEl = document.documentElement;
+        const sunIcon = document.getElementById("sun-icon");
+        const moonIcon = document.getElementById("moon-icon");
+        const themeBtn = document.getElementById("theme-toggle-btn");
+        const t = i18n[currentLang];
+
+        if (isDark) {
+          htmlEl.classList.add("dark");
+          sunIcon.classList.remove("hidden");
+          moonIcon.classList.add("hidden");
+          if (themeBtn) themeBtn.title = t.themeToLight;
+        } else {
+          htmlEl.classList.remove("dark");
+          sunIcon.classList.add("hidden");
+          moonIcon.classList.remove("hidden");
+          if (themeBtn) themeBtn.title = t.themeToDark;
+        }
+      }
+
+      function toggleTheme() {
+        currentTheme = currentTheme === "dark" ? "light" : "dark";
+        localStorage.setItem(THEME_KEY, currentTheme);
+        applyThemeUI();
+      }
+
+      // Default sample data ONLY when localStorage is completely empty (null)
+      const defaultSampleSubjects = [];
+
+      function loadSubjects() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (raw === null) {
+            saveSubjects(defaultSampleSubjects);
+            return defaultSampleSubjects;
+          }
+          return JSON.parse(raw);
+        } catch (e) {
+          console.error("Failed to load from localStorage", e);
+          return [];
+        }
+      }
+
+      function saveSubjects(data) {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        } catch (e) {
+          console.error("Failed to save to localStorage", e);
+        }
+      }
+
+      let subjects = loadSubjects();
+
+      // ==========================================
+      // 3. LANGUAGE & DIRECTION MANAGEMENT
+      // ==========================================
+      function applyLanguageUI() {
+        const t = i18n[currentLang];
+        document.documentElement.lang = currentLang;
+        document.documentElement.dir = t.dir;
+
+        // Update theme button tooltip for active language
+        applyThemeUI();
+
+        // Header & Footer
+        document.getElementById("nav-title").textContent = t.navTitle;
+        document.getElementById("nav-subtitle").textContent = t.navSubtitle;
+        document.getElementById("lang-btn-text").textContent = t.langBtn;
+        document.getElementById("footer-text").textContent = t.footerText;
+
+        // Dashboard Texts
+        document.getElementById("dash-heading").textContent = t.dashHeading;
+        document.getElementById("new-subject-input").placeholder =
+          t.subjectPlaceholder;
+        document.getElementById("add-subject-btn-text").textContent =
+          t.addSubjectBtn;
+        document.getElementById("empty-state-title").textContent = t.emptyTitle;
+        document.getElementById("empty-state-desc").textContent = t.emptyDesc;
+
+        // Detail View Texts
+        document.getElementById("back-btn-text").textContent = t.backBtn;
+        document.getElementById("no-delete-hint").textContent = t.noDeleteHint;
+        document.getElementById("lectures-section-title").textContent =
+          t.lecturesTitle;
+        document.getElementById("practice-section-title").textContent =
+          t.practiceTitle;
+        document.getElementById("lecture-input").placeholder =
+          t.lecturePlaceholder;
+        document.getElementById("practice-input").placeholder =
+          t.practicePlaceholder;
+        document
+          .querySelectorAll(".add-item-btn-text")
+          .forEach((el) => (el.textContent = t.addItemBtn));
+
+        // Back Arrow orientation
+        const backArrow = document.getElementById("back-arrow-icon");
+        if (currentLang === "ar") {
+          backArrow.innerHTML =
+            '<path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />';
+        } else {
+          backArrow.innerHTML =
+            '<path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />';
+        }
+
+        // Modal Texts
+        document.getElementById("modal-title").textContent = t.modalTitle;
+        document.getElementById("modal-cancel-btn").textContent = t.modalCancel;
+        document.getElementById("modal-confirm-btn").textContent =
+          t.modalConfirm;
+
+        // Re-render active view
+        if (currentView === "dashboard") {
+          renderDashboard();
+        } else {
+          renderDetailView();
+        }
+      }
+
+      function toggleLanguage() {
+        currentLang = currentLang === "ar" ? "en" : "ar";
+        localStorage.setItem(LANG_KEY, currentLang);
+        applyLanguageUI();
+      }
+
+      // ==========================================
+      // 4. HELPER CALCULATIONS
+      // ==========================================
+      function getSubjectStats(subject) {
+        const pendingLectures = subject.lectures.filter(
+          (l) => !l.completed,
+        ).length;
+        const pendingPractice = subject.practice.filter(
+          (p) => !p.completed,
+        ).length;
+        const totalLectures = subject.lectures.length;
+        const totalPractice = subject.practice.length;
+        const completedLectures = totalLectures - pendingLectures;
+        const completedPractice = totalPractice - pendingPractice;
+        const isClean = pendingLectures === 0 && pendingPractice === 0;
+
+        return {
+          pendingLectures,
+          pendingPractice,
+          totalLectures,
+          totalPractice,
+          completedLectures,
+          completedPractice,
+          isClean,
+        };
+      }
+
+      function formatPendingText(pendingLectures, pendingPractice) {
+        const t = i18n[currentLang];
+        const parts = [];
+
+        if (pendingLectures > 0) {
+          const label =
+            currentLang === "ar"
+              ? pendingLectures === 1 || pendingLectures > 10
+                ? t.lectureSingular
+                : t.lecturePlural
+              : pendingLectures === 1
+                ? t.lectureSingular
+                : t.lecturePlural;
+          parts.push(`${pendingLectures} ${label}`);
+        }
+
+        if (pendingPractice > 0) {
+          const label =
+            currentLang === "ar"
+              ? t.practiceSingular
+              : pendingPractice === 1
+                ? t.practiceSingular
+                : t.practicePlural;
+          parts.push(`${pendingPractice} ${label}`);
+        }
+
+        return `${t.pendingPrefix} ${parts.join(" • ")}`;
+      }
+
+      function escapeHTML(str) {
+        const div = document.createElement("div");
+        div.textContent = str;
+        return div.innerHTML;
+      }
+
+      // ==========================================
+      // 5. NAVIGATION (DASHBOARD <-> DETAIL)
+      // ==========================================
+      function navigateToDashboard() {
+        currentView = "dashboard";
+        activeSubjectId = null;
+        document.getElementById("detail-view").classList.add("hidden");
+        const dash = document.getElementById("dashboard-view");
+        dash.classList.remove("hidden");
+        dash.classList.remove("view-animate");
+        void dash.offsetWidth; // trigger reflow for animation
+        dash.classList.add("view-animate");
+        renderDashboard();
+      }
+
+      function navigateToSubject(subjectId) {
+        const exists = subjects.find((s) => s.id === subjectId);
+        if (!exists) return;
+
+        currentView = "detail";
+        activeSubjectId = subjectId;
+        document.getElementById("dashboard-view").classList.add("hidden");
+        const detail = document.getElementById("detail-view");
+        detail.classList.remove("hidden");
+        detail.classList.remove("view-animate");
+        void detail.offsetWidth;
+        detail.classList.add("view-animate");
+        renderDetailView();
+      }
+
+      // ==========================================
+      // 6. VIEW 1: DASHBOARD RENDER & ACTIONS
+      // ==========================================
+      function renderDashboard() {
+        const t = i18n[currentLang];
+        const grid = document.getElementById("subjects-grid");
+        const emptyState = document.getElementById("empty-subjects-state");
+        const statsContainer = document.getElementById("dash-stats");
+
+        // Overall summary stats
+        let totalPendingLecs = 0;
+        let totalPendingPrac = 0;
+        subjects.forEach((s) => {
+          const st = getSubjectStats(s);
+          totalPendingLecs += st.pendingLectures;
+          totalPendingPrac += st.pendingPractice;
+        });
+
+        statsContainer.innerHTML = `
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-stoneBg/50 dark:bg-darkBg/80">
+                    <span>${t.statsSubjects}</span>
+                    <strong class="text-espresso dark:text-darkCream font-extrabold">${subjects.length}</strong>
+                </span>
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-blush/35 dark:bg-terracotta/25">
+                    <span>${t.statsPendingLectures}</span>
+                    <strong class="text-espresso dark:text-blush font-extrabold">${totalPendingLecs}</strong>
+                </span>
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slateCool/20 dark:bg-slateCool/25">
+                    <span>${t.statsPendingPractice}</span>
+                    <strong class="text-espresso dark:text-darkCream font-extrabold">${totalPendingPrac}</strong>
+                </span>
+            `;
+
+        if (subjects.length === 0) {
+          grid.innerHTML = "";
+          emptyState.classList.remove("hidden");
+          return;
+        }
+
+        emptyState.classList.add("hidden");
+        grid.innerHTML = subjects
+          .map((subject) => {
+            const stats = getSubjectStats(subject);
+            const badgeHTML = stats.isClean
+              ? `<span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slateCool text-cardSurface text-xs font-extrabold shadow-2xs">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.8">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                            </svg>
+                            ${t.noBacklog}
+                       </span>`
+              : `<span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blush dark:bg-terracotta/25 text-espresso dark:text-blush border border-terracotta/40 dark:border-terracotta/40 text-xs font-extrabold">
+                            <span class="w-2 h-2 rounded-full bg-espresso dark:bg-blush animate-pulse"></span>
+                            ${formatPendingText(stats.pendingLectures, stats.pendingPractice)}
+                       </span>`;
+
+            // Subtle top border accent depending on clean vs backlog state
+            const cardAccentBorder = stats.isClean
+              ? "border-t-4 border-t-slateCool"
+              : "border-t-4 border-t-terracotta";
+
+            return `
+                    <div onclick="navigateToSubject('${subject.id}')" class="group relative bg-cardSurface dark:bg-darkSurface rounded-2xl p-5 shadow-sm hover:shadow-md border border-espresso/15 dark:border-darkCream/15 ${cardAccentBorder} cursor-pointer transition-all duration-200 hover:-translate-y-0.5 flex flex-col justify-between min-h-[148px]">
+                        
+                        <div class="flex items-start justify-between gap-3">
+                            <h3 class="text-lg font-extrabold text-espresso dark:text-darkCream group-hover:text-terracotta dark:group-hover:text-blush transition-colors line-clamp-2 leading-snug">
+                                ${escapeHTML(subject.name)}
+                            </h3>
+
+                            <!-- Remove Subject Button (Allowed on Outer Dashboard) -->
+                            <button 
+                                type="button"
+                                onclick="event.stopPropagation(); openConfirmModal('${subject.id}')" 
+                                title="${t.removeSubjectTooltip}"
+                                aria-label="${t.removeSubjectTooltip}"
+                                class="p-2 rounded-xl text-espresso/45 dark:text-darkCream/45 hover:text-espresso dark:hover:text-blush hover:bg-blush/50 dark:hover:bg-terracotta/25 transition-colors shrink-0"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="mt-5 pt-3 border-t border-espresso/10 dark:border-darkCream/10 flex items-center justify-between gap-2">
+                            ${badgeHTML}
+                            <span class="text-xs font-bold text-espresso/50 dark:text-darkCream/50 group-hover:text-espresso dark:group-hover:text-darkCream transition-colors">
+                                ${currentLang === "ar" ? "←" : "→"}
+                            </span>
+                        </div>
+                    </div>
+                `;
+          })
+          .join("");
+      }
+
+      function handleAddSubject(event) {
+        event.preventDefault();
+        const input = document.getElementById("new-subject-input");
+        const name = input.value.trim();
+        if (!name) return;
+
+        const newSubject = {
+          id:
+            "subj_" +
+            Date.now() +
+            "_" +
+            Math.random().toString(36).substr(2, 5),
+          name: name,
+          lectures: [],
+          practice: [],
+        };
+
+        subjects.unshift(newSubject);
+        saveSubjects(subjects);
+        input.value = "";
+        renderDashboard();
+      }
+
+      // Modal Confirmation for Removing Subject
+      function openConfirmModal(subjectId) {
+        const subject = subjects.find((s) => s.id === subjectId);
+        if (!subject) return;
+
+        subjectIdToDelete = subjectId;
+        const t = i18n[currentLang];
+        document.getElementById("modal-desc").textContent = t.modalDesc.replace(
+          "{name}",
+          subject.name,
+        );
+        document.getElementById("confirm-modal").classList.remove("hidden");
+      }
+
+      function closeConfirmModal() {
+        subjectIdToDelete = null;
+        document.getElementById("confirm-modal").classList.add("hidden");
+      }
+
+      function confirmRemoveSubject() {
+        if (!subjectIdToDelete) return;
+        subjects = subjects.filter((s) => s.id !== subjectIdToDelete);
+        saveSubjects(subjects);
+        closeConfirmModal();
+        renderDashboard();
+      }
+
+      // ==========================================
+      // 7. VIEW 2: SUBJECT DETAIL RENDER & ACTIONS
+      // ==========================================
+      function renderDetailView() {
+        const subject = subjects.find((s) => s.id === activeSubjectId);
+        if (!subject) {
+          navigateToDashboard();
+          return;
+        }
+
+        const t = i18n[currentLang];
+        const stats = getSubjectStats(subject);
+
+        // Subject Header & Live Status Badge
+        document.getElementById("detail-subject-title").textContent =
+          subject.name;
+        const badgeContainer = document.getElementById(
+          "detail-status-badge-container",
+        );
+        if (stats.isClean) {
+          badgeContainer.innerHTML = `
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slateCool text-cardSurface text-xs font-extrabold">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.8">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                        ${t.noBacklog}
+                    </span>
+                `;
+        } else {
+          badgeContainer.innerHTML = `
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-blush dark:bg-terracotta/25 text-espresso dark:text-blush border border-terracotta/40 text-xs font-extrabold">
+                        ${formatPendingText(stats.pendingLectures, stats.pendingPractice)}
+                    </span>
+                `;
+        }
+
+        // Counters (Completed / Total)
+        document.getElementById("lectures-counter").textContent =
+          `${stats.completedLectures} / ${stats.totalLectures} ${t.completedLabel}`;
+        document.getElementById("practice-counter").textContent =
+          `${stats.completedPractice} / ${stats.totalPractice} ${t.completedLabel}`;
+
+        // Render Lectures List (STRICTLY NO DELETE BUTTON)
+        const lecturesListEl = document.getElementById("lectures-list");
+        if (subject.lectures.length === 0) {
+          lecturesListEl.innerHTML = `
+                    <li class="py-8 text-center text-sm font-semibold text-espresso/50 dark:text-darkCream/50 bg-stoneBg/25 dark:bg-darkBg/50 rounded-xl border border-dashed border-espresso/15 dark:border-darkCream/15">
+                        ${t.emptyLectures}
+                    </li>
+                `;
+        } else {
+          lecturesListEl.innerHTML = subject.lectures
+            .map((item) => renderChecklistItem(item, "lectures"))
+            .join("");
+        }
+
+        // Render Practice List (STRICTLY NO DELETE BUTTON)
+        const practiceListEl = document.getElementById("practice-list");
+        if (subject.practice.length === 0) {
+          practiceListEl.innerHTML = `
+                    <li class="py-8 text-center text-sm font-semibold text-espresso/50 dark:text-darkCream/50 bg-stoneBg/25 dark:bg-darkBg/50 rounded-xl border border-dashed border-espresso/15 dark:border-darkCream/15">
+                        ${t.emptyPractice}
+                    </li>
+                `;
+        } else {
+          practiceListEl.innerHTML = subject.practice
+            .map((item) => renderChecklistItem(item, "practice"))
+            .join("");
+        }
+      }
+
+      function renderChecklistItem(item, category) {
+        const completedStyles = item.completed
+          ? "bg-slateCool/15 dark:bg-slateCool/20 border-slateCool/40 dark:border-slateCool/40 text-slateCool line-through opacity-85"
+          : "bg-white dark:bg-darkBg/90 border-espresso/15 dark:border-darkCream/15 text-espresso dark:text-darkCream hover:border-terracotta dark:hover:border-terracotta";
+
+        return `
+                <li>
+                    <label class="flex items-center gap-3.5 p-3.5 rounded-xl border ${completedStyles} cursor-pointer transition-all select-none">
+                        <input 
+                            type="checkbox" 
+                            class="custom-checkbox"
+                            ${item.completed ? "checked" : ""} 
+                            onchange="toggleItemComplete('${category}', '${item.id}')"
+                        >
+                        <span class="text-sm sm:text-base font-bold leading-snug break-words flex-1">
+                            ${escapeHTML(item.title)}
+                        </span>
+                    </label>
+                </li>
+            `;
+      }
+
+      function handleAddItem(event, category) {
+        event.preventDefault();
+        const subject = subjects.find((s) => s.id === activeSubjectId);
+        if (!subject) return;
+
+        const inputId =
+          category === "lectures" ? "lecture-input" : "practice-input";
+        const input = document.getElementById(inputId);
+        const title = input.value.trim();
+        if (!title) return;
+
+        const newItem = {
+          id:
+            category +
+            "_" +
+            Date.now() +
+            "_" +
+            Math.random().toString(36).substr(2, 4),
+          title: title,
+          completed: false,
+        };
+
+        subject[category].push(newItem);
+        saveSubjects(subjects);
+        input.value = "";
+        renderDetailView();
+      }
+
+      function toggleItemComplete(category, itemId) {
+        const subject = subjects.find((s) => s.id === activeSubjectId);
+        if (!subject) return;
+
+        const item = subject[category].find((i) => i.id === itemId);
+        if (!item) return;
+
+        item.completed = !item.completed;
+        saveSubjects(subjects);
+        renderDetailView();
+      }
+
+      // ==========================================
+      // 8. INITIALIZE APP
+      // ==========================================
+      window.addEventListener("DOMContentLoaded", () => {
+        applyLanguageUI();
+      });
+    </script>
+  </body>
+</html>

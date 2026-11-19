@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#1E1715"/>
+  
+  <!-- Subtle Decorative Border -->
+  <rect x="36" y="36" width="1128" height="558" rx="32" fill="#2C221F" stroke="#BC7B6F" stroke-width="2.5" stroke-opacity="0.35"/>
+
+  <!-- Left Content Area (Strictly bounded to max width ~660px) -->
+  <g transform="translate(80, 115)">
+    <!-- Badge -->
+    <rect x="0" y="0" width="280" height="42" rx="21" fill="#BC7B6F" fill-opacity="0.18" stroke="#BC7B6F" stroke-width="1.5"/>
+    <circle cx="24" cy="21" r="6" fill="#E4A499"/>
+    <text x="44" y="27" fill="#E4A499" font-family="Arial, sans-serif" font-size="17" font-weight="bold">Distraction-Free Catch-Up</text>
+
+    <!-- Main Title (Two clean stacked lines so it never collides) -->
+    <text x="0" y="112" fill="#EDEAE6" font-family="Arial, sans-serif" font-size="64" font-weight="bold">My Backlog</text>
+    <text x="0" y="182" fill="#E4A499" font-family="Arial, sans-serif" font-size="52" font-weight="bold">تراكماتي</text>
+
+    <!-- Subtitle / Description -->
+    <text x="0" y="245" fill="#EDEAE6" fill-opacity="0.82" font-family="Arial, sans-serif" font-size="23">Track accumulated lectures &amp; practice per subject.</text>
+    <text x="0" y="285" fill="#BC7B6F" font-family="Arial, sans-serif" font-size="22" font-weight="bold">No delete inside — check the box when done!</text>
+
+    <!-- Palette Swatches Pill -->
+    <g transform="translate(0, 345)">
+      <circle cx="16" cy="16" r="15" fill="#5A322A" stroke="#EDEAE6" stroke-width="2"/>
+      <circle cx="56" cy="16" r="15" fill="#BC7B6F"/>
+      <circle cx="96" cy="16" r="15" fill="#E4A499"/>
+      <circle cx="136" cy="16" r="15" fill="#718A9E"/>
+      <circle cx="176" cy="16" r="15" fill="#CCCDC7"/>
+    </g>
+  </g>
+
+  <!-- Right Stacked Books & Checkmark Illustration (Positioned cleanly at x=810) -->
+  <g transform="translate(810, 145)">
+    <rect x="0" y="0" width="300" height="340" rx="34" fill="#1E1715" stroke="#EDEAE6" stroke-opacity="0.12" stroke-width="2"/>
+    
+    <!-- Book 1 (Bottom - Espresso) -->
+    <rect x="42" y="218" width="216" height="44" rx="12" fill="#5A322A" stroke="#BC7B6F" stroke-width="2"/>
+    <rect x="62" y="236" width="85" height="8" rx="4" fill="#E4A499"/>
+
+    <!-- Book 2 (Middle - Terracotta) -->
+    <rect x="34" y="158" width="232" height="44" rx="12" fill="#BC7B6F"/>
+    <rect x="54" y="176" width="115" height="8" rx="4" fill="#F5F5F3"/>
+
+    <!-- Book 3 (Top - Slate Cool) -->
+    <rect x="50" y="98" width="200" height="44" rx="12" fill="#718A9E"/>
+    <rect x="70" y="116" width="90" height="8" rx="4" fill="#F5F5F3"/>
+
+    <!-- Checkmark Badge -->
+    <circle cx="240" cy="84" r="32" fill="#E4A499" stroke="#1E1715" stroke-width="6"/>
+    <path d="M227 84L236 93L255 74" fill="none" stroke="#5A322A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Warm Espresso Rounded Squircle Background -->
+  <rect width="64" height="64" rx="18" fill="#5A322A"/>
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="none" stroke="#BC7B6F" stroke-width="2" stroke-opacity="0.45"/>
+
+  <!-- Open Book Pages -->
+  <!-- Left Page -->
+  <path d="M14 21C14 19.3431 15.3431 18 17 18H27C29.7614 18 32 20.2386 32 23V46C32 43.7909 30.2091 42 28 42H17C15.3431 42 14 40.6569 14 39V21Z" fill="#E4A499"/>
+  <!-- Right Page -->
+  <path d="M50 21C50 19.3431 48.6569 18 47 18H37C34.2386 18 32 20.2386 32 23V46C32 43.7909 33.7909 42 36 42H47C48.6569 42 50 40.6569 50 39V21Z" fill="#F5F5F3"/>
+
+  <!-- Subtle Page Lines on Left -->
+  <rect x="18" y="24" width="10" height="2.5" rx="1.25" fill="#5A322A" fill-opacity="0.5"/>
+  <rect x="18" y="30" width="8" height="2.5" rx="1.25" fill="#5A322A" fill-opacity="0.5"/>
+
+  <!-- Slate Cool Checkmark Badge (Top Right Corner) -->
+  <circle cx="48" cy="17" r="11" fill="#718A9E" stroke="#5A322A" stroke-width="3"/>
+  <path d="M43.5 17L46.5 20L52.5 14" fill="none" stroke="#F5F5F3" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
