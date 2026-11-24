@@ -574,7 +574,7 @@
                 quizAvgLabel: 'متوسط {n}%',
                 quizMoreChips: '+{n}',
                 quizAdviceWarn: 'في كويز جبت فيه أقل من 75% من الدرجة — راجعه كويس، لسه ينفع تلحق نفسك.',
-                quizAdviceDanger: 'درجتك في كويز أقل من النص (50%)! المادة دي محتاجة مذاكرة جدية فورًا قبل الكويز اللي جاي.',
+                quizAdviceDanger: 'درجتك في كويز النص أو أقل (50%)! المادة دي محتاجة مذاكرة جدية فورًا قبل الكويز اللي جاي.',
                 quizShortPrefix: 'كويز:',
                 statsUpcomingQuizzes: 'كويزات قادمة:',
                 addItemBtn: 'إضافة',
@@ -647,7 +647,7 @@
                 quizAvgLabel: 'Avg {n}%',
                 quizMoreChips: '+{n}',
                 quizAdviceWarn: 'One quiz is below 75% — review it while you still can catch up.',
-                quizAdviceDanger: 'A quiz grade is below half (50%)! This subject needs serious revision right now before the next quiz.',
+                quizAdviceDanger: 'A quiz grade is half (50%) or lower! This subject needs serious revision right now before the next quiz.',
                 quizShortPrefix: 'Quiz:',
                 statsUpcomingQuizzes: 'Upcoming Quizzes:',
                 addItemBtn: 'Add',
@@ -1411,7 +1411,7 @@
         // < 50% => 'low' (red), < 75% => 'warn' (amber), otherwise 'good'
         function getGradeState(percent) {
             if (percent === null || percent === undefined) return 'neutral';
-            if (percent < 50) return 'low';
+            if (percent <= 50) return 'low';
             if (percent < 75) return 'warn';
             return 'good';
         }
@@ -1661,7 +1661,7 @@
                 </form>` : '';
 
             return `
-                <li class="rounded-xl border ${graded ? 'bg-slateCool/10 border-slateCool/35' : 'bg-white dark:bg-darkBg/90 border-espresso/15 dark:border-darkCream/15 hover:border-terracotta dark:hover:border-terracotta'} p-3 transition-all">
+                <li class="rounded-xl border ${gradeState === 'low' ? 'bg-red-500/15 dark:bg-red-500/20 border-red-500/50' : gradeState === 'warn' ? 'bg-amber-400/20 dark:bg-amber-500/15 border-amber-500/50' : graded ? 'bg-slateCool/10 border-slateCool/35' : 'bg-white dark:bg-darkBg/90 border-espresso/15 dark:border-darkCream/15 hover:border-terracotta dark:hover:border-terracotta'} p-3 transition-all">
                     <div class="flex items-start justify-between gap-2">
                         <p class="text-sm font-bold leading-snug break-words min-w-0 text-espresso dark:text-darkCream">
                             ${escapeHTML(quiz.title)}
