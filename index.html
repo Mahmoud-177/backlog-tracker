@@ -7,7 +7,7 @@
     <!-- Primary Meta Tags -->
     <title>تراكماتي | My Backlog — لمّ المواد بدون تشتيت</title>
     <meta name="title" content="تراكماتي | My Backlog — لمّ المواد بدون تشتيت">
-    <meta name="description" content="أداة بسيطة وذكية تساعدك تلم المحاضرات والحل المتراكم عليك في كل مادة بدون تشتيت وبنظام إنجاز حقيقي.">
+    <meta name="description" content="أداة بسيطة وذكية تساعدك تلم المحاضرات والحل المتراكم عليك في كل مادة، وتسجّل مواعيد كويزاتك ودرجاتك، بدون تشتيت وبنظام إنجاز حقيقي.">
     <meta name="theme-color" content="#5A322A">
 
     <!-- Favicon (Custom Open Book + Checkmark SVG matching theme colors) -->
@@ -120,6 +120,14 @@
             margin-bottom: 2px;
         }
 
+        /* Native Date Picker Colors (Light / Dark) */
+        input[type="date"] {
+            color-scheme: light;
+        }
+        html.dark input[type="date"] {
+            color-scheme: dark;
+        }
+
         /* Smooth View Transition */
         .view-animate {
             animation: fadeSlideIn 0.25s ease-out forwards;
@@ -220,7 +228,7 @@
                         لمّ موادك المتراكمة خطوة بخطوة
                     </h2>
                     <p id="hero-desc" class="text-sm sm:text-base text-espresso/75 dark:text-darkCream/75 leading-relaxed font-medium">
-                        سجّل موادك، وضيف جوا كل مادة المحاضرات والحل اللي متراكم عليك — علّم صح لما تخلص وشوف موادك بتتحول لـ "لا تراكمات".
+                        سجّل موادك، وضيف جوا كل مادة المحاضرات والحل اللي متراكم عليك، وسجّل مواعيد كويزاتك ودرجاتك — علّم صح لما تخلص وشوف موادك بتتحول لـ "لا تراكمات".
                     </p>
                 </div>
 
@@ -416,6 +424,67 @@
                 </div>
 
             </div>
+
+            <!-- SECTION C: QUIZZES (SCHEDULE + GRADES) -->
+            <div class="bg-cardSurface dark:bg-darkSurface rounded-2xl p-5 sm:p-6 shadow-sm border border-espresso/15 dark:border-darkCream/15 transition-colors duration-300">
+                <div class="flex items-center justify-between gap-2 pb-4 border-b border-espresso/10 dark:border-darkCream/10">
+                    <div class="flex items-center gap-2.5">
+                        <span class="w-3 h-3 rounded-full bg-blush"></span>
+                        <h3 id="quizzes-section-title" class="text-lg font-extrabold text-espresso dark:text-darkCream">الكويزات</h3>
+                    </div>
+                    <span id="quizzes-counter" class="px-3 py-1 rounded-lg bg-stoneBg/60 dark:bg-darkBg/90 text-espresso dark:text-darkCream text-xs font-extrabold">
+                        0 / 0
+                    </span>
+                </div>
+
+                <!-- Add Quiz Form (Title + Date + Optional Max Grade) -->
+                <form id="add-quiz-form" onsubmit="handleAddQuiz(event)" class="mt-4 grid grid-cols-1 md:grid-cols-12 gap-2.5">
+                    <div class="md:col-span-5">
+                        <label for="quiz-title-input" id="quiz-title-label" class="block text-[11px] font-extrabold text-espresso/70 dark:text-darkCream/70 mb-1">عنوان الكويز</label>
+                        <input
+                            type="text"
+                            id="quiz-title-input"
+                            required
+                            maxlength="60"
+                            placeholder="مثلاً: كويز 1 - التكامل"
+                            class="w-full px-3.5 py-2.5 rounded-xl bg-stoneBg/40 dark:bg-darkBg/90 border border-espresso/20 dark:border-darkCream/20 text-espresso dark:text-darkCream placeholder-espresso/50 dark:placeholder-darkCream/45 text-sm font-semibold focus:outline-none focus:border-terracotta focus:bg-white dark:focus:bg-darkBg transition-all"
+                        >
+                    </div>
+                    <div class="md:col-span-3">
+                        <label for="quiz-date-input" id="quiz-date-label" class="block text-[11px] font-extrabold text-espresso/70 dark:text-darkCream/70 mb-1">التاريخ</label>
+                        <input
+                            type="date"
+                            id="quiz-date-input"
+                            required
+                            class="w-full px-3 py-2.5 rounded-xl bg-stoneBg/40 dark:bg-darkBg/90 border border-espresso/20 dark:border-darkCream/20 text-espresso dark:text-darkCream text-sm font-semibold focus:outline-none focus:border-terracotta focus:bg-white dark:focus:bg-darkBg transition-all"
+                        >
+                    </div>
+                    <div class="md:col-span-2">
+                        <label for="quiz-max-input" id="quiz-max-label" class="block text-[11px] font-extrabold text-espresso/70 dark:text-darkCream/70 mb-1">الدرجة الكاملة</label>
+                        <input
+                            type="number"
+                            id="quiz-max-input"
+                            min="0"
+                            step="0.5"
+                            placeholder="اختياري"
+                            class="w-full px-3.5 py-2.5 rounded-xl bg-stoneBg/40 dark:bg-darkBg/90 border border-espresso/20 dark:border-darkCream/20 text-espresso dark:text-darkCream placeholder-espresso/50 dark:placeholder-darkCream/45 text-sm font-semibold focus:outline-none focus:border-terracotta focus:bg-white dark:focus:bg-darkBg transition-all"
+                        >
+                    </div>
+                    <div class="md:col-span-2 flex items-end">
+                        <button type="submit" class="w-full px-4 py-2.5 rounded-xl bg-terracotta hover:bg-espresso dark:hover:bg-blush text-cardSurface dark:text-darkBg font-bold text-sm shadow-sm transition-all active:scale-95 flex items-center justify-center gap-1.5 whitespace-nowrap">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                            </svg>
+                            <span id="add-quiz-btn-text">إضافة كويز</span>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Quizzes List -->
+                <ul id="quizzes-list" class="mt-4 grid grid-cols-1 lg:grid-cols-2 gap-2.5">
+                    <!-- Quiz cards injected here -->
+                </ul>
+            </div>
         </section>
 
     </main>
@@ -462,7 +531,7 @@
                 langBtn: 'English',
                 heroBadge: 'نظام لمّ المنهج الذكي',
                 heroTitle: 'لمّ موادك المتراكمة خطوة بخطوة',
-                heroDesc: 'سجّل موادك، وضيف جوا كل مادة المحاضرات والحل اللي متراكم عليك — علّم صح لما تخلص وشوف موادك بتتحول لـ "لا تراكمات".',
+                heroDesc: 'سجّل موادك، وضيف جوا كل مادة المحاضرات والحل اللي متراكم عليك، وسجّل مواعيد كويزاتك ودرجاتك — علّم صح لما تخلص وشوف موادك بتتحول لـ "لا تراكمات".',
                 dashHeading: 'المواد الدراسية',
                 subjectPlaceholder: 'اسم المادة (مثلاً: Calculus)',
                 subjectDescPlaceholder: 'وصف قصير اختياري (دكتور المادة / ملاحظة...)',
@@ -482,6 +551,32 @@
                 practiceTitle: 'الحل المتراكم',
                 lecturePlaceholder: 'مثلاً: محاضرة 4 - التكامل...',
                 practicePlaceholder: 'مثلاً: شيت 2 أو حل أسئلة الدرس...',
+                quizzesTitle: 'الكويزات',
+                quizTitleLabel: 'عنوان الكويز',
+                quizDateLabel: 'التاريخ',
+                quizMaxLabel: 'الدرجة الكاملة',
+                quizTitlePlaceholder: 'مثلاً: كويز 1 - التكامل',
+                quizMaxPlaceholder: 'اختياري',
+                addQuizBtn: 'إضافة كويز',
+                emptyQuizzes: 'مفيش كويزات مسجلة للمادة دي لسه',
+                quizGradeLabel: 'الدرجة',
+                quizRecordGrade: 'سجّل الدرجة',
+                quizEditGradeTooltip: 'تعديل الدرجة',
+                quizClearGrade: 'مسح الدرجة',
+                quizGraded: 'مصحّح',
+                quizToday: 'النهاردة',
+                quizTomorrow: 'بكرة',
+                quizYesterday: 'امبارح',
+                quizInDays: 'بعد {n}',
+                quizDaysAgo: 'متأخر {n}',
+                quizOutOfShort: 'من {n}',
+                quizGradesLabel: 'درجات الكويزات',
+                quizAvgLabel: 'متوسط {n}%',
+                quizMoreChips: '+{n}',
+                quizAdviceWarn: 'في كويز جبت فيه أقل من 75% من الدرجة — راجعه كويس، لسه ينفع تلحق نفسك.',
+                quizAdviceDanger: 'درجتك في كويز أقل من النص (50%)! المادة دي محتاجة مذاكرة جدية فورًا قبل الكويز اللي جاي.',
+                quizShortPrefix: 'كويز:',
+                statsUpcomingQuizzes: 'كويزات قادمة:',
                 addItemBtn: 'إضافة',
                 editTooltip: 'تعديل',
                 deleteTooltip: 'حذف',
@@ -509,7 +604,7 @@
                 langBtn: 'العربية',
                 heroBadge: 'Smart Study Catch-Up',
                 heroTitle: 'Clear your study backlog step by step',
-                heroDesc: 'Add your subjects and track accumulated lectures and practice sheets inside each one — check items off as you finish them until your subject reaches "No Backlog".',
+                heroDesc: 'Add your subjects and track accumulated lectures, practice sheets, quiz dates and grades inside each one — check items off as you finish them until your subject reaches "No Backlog".',
                 dashHeading: 'My Subjects',
                 subjectPlaceholder: 'Subject name (e.g., Calculus)',
                 subjectDescPlaceholder: 'Optional short description (Professor / Notes...)',
@@ -529,6 +624,32 @@
                 practiceTitle: 'Accumulated Practice',
                 lecturePlaceholder: 'e.g., Lecture 4 - Integration...',
                 practicePlaceholder: 'e.g., Sheet 2 or Chapter Problems...',
+                quizzesTitle: 'Quizzes',
+                quizTitleLabel: 'Quiz title',
+                quizDateLabel: 'Date',
+                quizMaxLabel: 'Out of',
+                quizTitlePlaceholder: 'e.g., Quiz 1 - Integration',
+                quizMaxPlaceholder: 'Optional',
+                addQuizBtn: 'Add Quiz',
+                emptyQuizzes: 'No quizzes scheduled for this subject yet',
+                quizGradeLabel: 'Grade',
+                quizRecordGrade: 'Add grade',
+                quizEditGradeTooltip: 'Edit grade',
+                quizClearGrade: 'Clear grade',
+                quizGraded: 'Graded',
+                quizToday: 'Today',
+                quizTomorrow: 'Tomorrow',
+                quizYesterday: 'Yesterday',
+                quizInDays: 'in {n}',
+                quizDaysAgo: '{n} ago',
+                quizOutOfShort: 'out of {n}',
+                quizGradesLabel: 'Quiz Grades',
+                quizAvgLabel: 'Avg {n}%',
+                quizMoreChips: '+{n}',
+                quizAdviceWarn: 'One quiz is below 75% — review it while you still can catch up.',
+                quizAdviceDanger: 'A quiz grade is below half (50%)! This subject needs serious revision right now before the next quiz.',
+                quizShortPrefix: 'Quiz:',
+                statsUpcomingQuizzes: 'Upcoming Quizzes:',
                 addItemBtn: 'Add',
                 editTooltip: 'Edit',
                 deleteTooltip: 'Delete',
@@ -564,6 +685,7 @@
         let activeSubjectId = null;
         let subjectIdToDelete = null;
         let editingItemState = null; // { category, id }
+        let quizEditState = null; // { id, mode: 'edit' | 'grade' }
 
         function applyThemeUI() {
             const isDark = currentTheme === 'dark';
@@ -598,7 +720,22 @@
                 if (raw === null) {
                     return [];
                 }
-                return JSON.parse(raw);
+                const parsed = JSON.parse(raw);
+                if (!Array.isArray(parsed)) return [];
+
+                // Normalize old saved data (adds quizzes array where missing)
+                return parsed.map(subject => ({
+                    ...subject,
+                    lectures: Array.isArray(subject.lectures) ? subject.lectures : [],
+                    practice: Array.isArray(subject.practice) ? subject.practice : [],
+                    quizzes: Array.isArray(subject.quizzes)
+                        ? subject.quizzes.map(quiz => ({
+                            maxGrade: null,
+                            grade: null,
+                            ...quiz
+                        }))
+                        : []
+                }));
             } catch (e) {
                 console.error('Failed to load from localStorage', e);
                 return [];
@@ -653,6 +790,15 @@
             document.getElementById('practice-input').placeholder = t.practicePlaceholder;
             document.querySelectorAll('.add-item-btn-text').forEach(el => el.textContent = t.addItemBtn);
 
+            // Quiz Section Texts
+            document.getElementById('quizzes-section-title').textContent = t.quizzesTitle;
+            document.getElementById('quiz-title-label').textContent = t.quizTitleLabel;
+            document.getElementById('quiz-date-label').textContent = t.quizDateLabel;
+            document.getElementById('quiz-max-label').textContent = t.quizMaxLabel;
+            document.getElementById('quiz-title-input').placeholder = t.quizTitlePlaceholder;
+            document.getElementById('quiz-max-input').placeholder = t.quizMaxPlaceholder;
+            document.getElementById('add-quiz-btn-text').textContent = t.addQuizBtn;
+
             // Back Arrow orientation
             const backArrow = document.getElementById('back-arrow-icon');
             if (currentLang === 'ar') {
@@ -692,6 +838,15 @@
             const completedPractice = totalPractice - pendingPractice;
             const isClean = pendingLectures === 0 && pendingPractice === 0;
 
+            const quizzes = subject.quizzes || [];
+            const totalQuizzes = quizzes.length;
+            const gradedQuizzes = quizzes.filter(q => q.grade !== null && q.grade !== undefined).length;
+            const upcomingQuizzes = quizzes.filter(q => {
+                const notGraded = q.grade === null || q.grade === undefined;
+                const days = daysUntil(q.date);
+                return notGraded && days !== null && days >= 0;
+            }).length;
+
             return {
                 pendingLectures,
                 pendingPractice,
@@ -699,6 +854,9 @@
                 totalPractice,
                 completedLectures,
                 completedPractice,
+                totalQuizzes,
+                gradedQuizzes,
+                upcomingQuizzes,
                 isClean
             };
         }
@@ -737,6 +895,7 @@
             currentView = 'dashboard';
             activeSubjectId = null;
             editingItemState = null;
+            quizEditState = null;
             document.getElementById('detail-view').classList.add('hidden');
             const dash = document.getElementById('dashboard-view');
             dash.classList.remove('hidden');
@@ -753,6 +912,7 @@
             currentView = 'detail';
             activeSubjectId = subjectId;
             editingItemState = null;
+            quizEditState = null;
             document.getElementById('dashboard-view').classList.add('hidden');
             const detail = document.getElementById('detail-view');
             detail.classList.remove('hidden');
@@ -773,10 +933,12 @@
 
             let totalPendingLecs = 0;
             let totalPendingPrac = 0;
+            let totalUpcomingQuizzes = 0;
             subjects.forEach(s => {
                 const st = getSubjectStats(s);
                 totalPendingLecs += st.pendingLectures;
                 totalPendingPrac += st.pendingPractice;
+                totalUpcomingQuizzes += st.upcomingQuizzes;
             });
 
             statsContainer.innerHTML = `
@@ -791,6 +953,10 @@
                 <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slateCool/20 dark:bg-slateCool/25">
                     <span>${t.statsPendingPractice}</span>
                     <strong class="text-espresso dark:text-darkCream font-extrabold">${totalPendingPrac}</strong>
+                </span>
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-espresso/10 dark:bg-darkCream/10">
+                    <span>${t.statsUpcomingQuizzes}</span>
+                    <strong class="text-espresso dark:text-darkCream font-extrabold">${totalUpcomingQuizzes}</strong>
                 </span>
             `;
 
@@ -821,6 +987,18 @@
 
                 const cardAccentBorder = stats.isClean ? 'border-t-4 border-t-slateCool' : 'border-t-4 border-t-terracotta';
 
+                const nextQuiz = getNextQuiz(subject);
+                const nextQuizHTML = nextQuiz
+                    ? `<div class="mt-4 flex items-center gap-1.5 text-[11px] font-extrabold text-espresso/70 dark:text-darkCream/70">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 shrink-0 text-terracotta dark:text-blush" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            <span class="truncate">${t.quizShortPrefix} ${escapeHTML(nextQuiz.title)} · ${formatQuizDate(nextQuiz.date)}</span>
+                       </div>`
+                    : '';
+
+                const gradesHTML = buildQuizGradesHTML(subject);
+
                 return `
                     <div onclick="navigateToSubject('${subject.id}')" class="group relative bg-cardSurface dark:bg-darkSurface rounded-2xl p-5 shadow-sm hover:shadow-md border border-espresso/15 dark:border-darkCream/15 ${cardAccentBorder} cursor-pointer transition-all duration-200 hover:-translate-y-0.5 flex flex-col justify-between min-h-[164px]">
                         
@@ -846,7 +1024,10 @@
                             </button>
                         </div>
 
-                        <div class="mt-5 pt-3 border-t border-espresso/10 dark:border-darkCream/10 flex items-center justify-between gap-2">
+                        ${nextQuizHTML}
+                        ${gradesHTML}
+
+                        <div class="mt-3 pt-3 border-t border-espresso/10 dark:border-darkCream/10 flex items-center justify-between gap-2">
                             ${badgeHTML}
                             <span class="text-xs font-bold text-espresso/50 dark:text-darkCream/50 group-hover:text-espresso dark:group-hover:text-blush transition-colors">
                                 ${currentLang === 'ar' ? '←' : '→'}
@@ -872,7 +1053,8 @@
                 name: name,
                 description: description,
                 lectures: [],
-                practice: []
+                practice: [],
+                quizzes: []
             };
 
             subjects.unshift(newSubject);
@@ -972,12 +1154,36 @@
                 practiceListEl.innerHTML = subject.practice.map(item => renderChecklistItem(item, 'practice')).join('');
             }
 
-            // Auto-focus inline edit input if currently editing an item
+            // Quizzes Counter & List
+            document.getElementById('quizzes-counter').textContent = `${stats.gradedQuizzes} / ${stats.totalQuizzes} ${t.completedLabel}`;
+            const quizzesListEl = document.getElementById('quizzes-list');
+            if (subject.quizzes.length === 0) {
+                quizzesListEl.innerHTML = `
+                    <li class="lg:col-span-2 py-8 text-center text-sm font-semibold text-espresso/50 dark:text-darkCream/50 bg-stoneBg/25 dark:bg-darkBg/50 rounded-xl border border-dashed border-espresso/15 dark:border-darkCream/15">
+                        ${t.emptyQuizzes}
+                    </li>
+                `;
+            } else {
+                quizzesListEl.innerHTML = sortQuizzes(subject.quizzes).map(quiz => renderQuizItem(quiz)).join('');
+            }
+
+            // Auto-focus inline edit input if currently editing an item or a quiz
             if (editingItemState) {
                 const editInput = document.getElementById(`edit-input-${editingItemState.id}`);
                 if (editInput) {
                     editInput.focus();
                     editInput.setSelectionRange(editInput.value.length, editInput.value.length);
+                }
+            }
+
+            if (quizEditState) {
+                const quizInputId = quizEditState.mode === 'grade'
+                    ? `quiz-grade-input-${quizEditState.id}`
+                    : `quiz-edit-title-${quizEditState.id}`;
+                const quizInput = document.getElementById(quizInputId);
+                if (quizInput) {
+                    quizInput.focus();
+                    if (quizInput.select) quizInput.select();
                 }
             }
         }
@@ -1136,6 +1342,478 @@
             if (!item) return;
 
             item.completed = !item.completed;
+            saveSubjects(subjects);
+            renderDetailView();
+        }
+
+        // ==========================================
+        // 7.1 QUIZZES: DATE HELPERS, RENDER & ACTIONS
+        // ==========================================
+        function parseDateOnly(dateStr) {
+            if (!dateStr || typeof dateStr !== 'string') return null;
+            const parts = dateStr.split('-');
+            if (parts.length !== 3) return null;
+            const d = new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]));
+            return isNaN(d.getTime()) ? null : d;
+        }
+
+        function todayDateOnly() {
+            const now = new Date();
+            return new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        }
+
+        function daysUntil(dateStr) {
+            const d = parseDateOnly(dateStr);
+            if (!d) return null;
+            return Math.round((d - todayDateOnly()) / 86400000);
+        }
+
+        function formatQuizDate(dateStr) {
+            const d = parseDateOnly(dateStr);
+            if (!d) return '';
+            const opts = { day: 'numeric', month: 'long' };
+            if (d.getFullYear() !== new Date().getFullYear()) opts.year = 'numeric';
+            const locale = currentLang === 'ar' ? 'ar-EG-u-nu-latn' : 'en-GB';
+            return new Intl.DateTimeFormat(locale, opts).format(d);
+        }
+
+        function formatDaysCount(n) {
+            if (currentLang === 'ar') {
+                if (n === 1) return 'يوم واحد';
+                if (n === 2) return 'يومين';
+                if (n >= 3 && n <= 10) return `${n} أيام`;
+                return `${n} يوم`;
+            }
+            return `${n} ${n === 1 ? 'day' : 'days'}`;
+        }
+
+        function formatQuizTiming(quiz) {
+            const days = daysUntil(quiz.date);
+            if (days === null) return '';
+            const t = i18n[currentLang];
+            if (days === 0) return t.quizToday;
+            if (days === 1) return t.quizTomorrow;
+            if (days === -1) return t.quizYesterday;
+            if (days > 1) return t.quizInDays.replace('{n}', formatDaysCount(days));
+            return t.quizDaysAgo.replace('{n}', formatDaysCount(Math.abs(days)));
+        }
+
+        function isQuizGraded(quiz) {
+            return quiz.grade !== null && quiz.grade !== undefined;
+        }
+
+        function getQuizPercent(quiz) {
+            if (!isQuizGraded(quiz)) return null;
+            if (!quiz.maxGrade || quiz.maxGrade <= 0) return null;
+            return (quiz.grade / quiz.maxGrade) * 100;
+        }
+
+        // < 50% => 'low' (red), < 75% => 'warn' (amber), otherwise 'good'
+        function getGradeState(percent) {
+            if (percent === null || percent === undefined) return 'neutral';
+            if (percent < 50) return 'low';
+            if (percent < 75) return 'warn';
+            return 'good';
+        }
+
+        function getGradeStateClasses(state) {
+            switch (state) {
+                case 'low':
+                    return {
+                        chip: 'bg-red-500/15 dark:bg-red-500/20 text-red-700 dark:text-red-300 border border-red-500/40',
+                        advice: 'text-red-700 dark:text-red-300 bg-red-500/10 border-red-500/35'
+                    };
+                case 'warn':
+                    return {
+                        chip: 'bg-amber-500/15 dark:bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/40',
+                        advice: 'text-amber-700 dark:text-amber-300 bg-amber-500/10 border-amber-500/35'
+                    };
+                case 'good':
+                    return {
+                        chip: 'bg-slateCool/15 dark:bg-slateCool/25 text-slateCool border border-slateCool/40',
+                        advice: ''
+                    };
+                default:
+                    return {
+                        chip: 'bg-stoneBg/70 dark:bg-darkSurface text-espresso/75 dark:text-darkCream/75 border border-espresso/20 dark:border-darkCream/20',
+                        advice: ''
+                    };
+            }
+        }
+
+        function getQuizAdvice(state) {
+            const t = i18n[currentLang];
+            if (state === 'low') return t.quizAdviceDanger;
+            if (state === 'warn') return t.quizAdviceWarn;
+            return '';
+        }
+
+        function formatGradeValue(quiz, compact) {
+            if (!isQuizGraded(quiz)) return '';
+            const separator = compact ? '/' : ' / ';
+            return quiz.maxGrade ? `${quiz.grade}${separator}${quiz.maxGrade}` : `${quiz.grade}`;
+        }
+
+        // Grade chips + average + advice shown on the subject dashboard card
+        function buildQuizGradesHTML(subject) {
+            const t = i18n[currentLang];
+            const graded = (subject.quizzes || []).filter(q => isQuizGraded(q));
+            if (graded.length === 0) return '';
+
+            const sorted = [...graded].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+            const shown = sorted.slice(0, 4);
+            const rest = sorted.length - shown.length;
+
+            const chipsHTML = shown.map(quiz => {
+                const state = getGradeState(getQuizPercent(quiz));
+                const classes = getGradeStateClasses(state);
+                return `<span dir="ltr" class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-extrabold ${classes.chip}" title="${escapeHTML(quiz.title)}" aria-label="${escapeHTML(quiz.title)}">${formatGradeValue(quiz, true)}</span>`;
+            }).join('');
+
+            const restHTML = rest > 0
+                ? `<span class="inline-flex items-center px-2 py-0.5 rounded-md bg-stoneBg/70 dark:bg-darkSurface text-espresso/65 dark:text-darkCream/65 text-[11px] font-extrabold border border-espresso/15 dark:border-darkCream/15">${t.quizMoreChips.replace('{n}', rest)}</span>`
+                : '';
+
+            const percents = sorted.map(getQuizPercent).filter(p => p !== null);
+            const average = percents.length
+                ? Math.round(percents.reduce((sum, p) => sum + p, 0) / percents.length)
+                : null;
+            const averageHTML = average !== null
+                ? `<span dir="ltr" class="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-extrabold ${getGradeStateClasses(getGradeState(average)).chip}">${t.quizAvgLabel.replace('{n}', average)}</span>`
+                : '';
+
+            const worstPercent = percents.length ? Math.min(...percents) : null;
+            const adviceState = getGradeState(worstPercent);
+            const advice = getQuizAdvice(adviceState);
+            const adviceHTML = advice
+                ? `<p class="flex items-start gap-1.5 px-2 py-1.5 rounded-lg border text-[10px] font-bold leading-relaxed ${getGradeStateClasses(adviceState).advice}">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
+                        </svg>
+                        <span>${advice}</span>
+                   </p>`
+                : '';
+
+            return `
+                <div class="mt-3 pt-3 border-t border-dashed border-espresso/20 dark:border-darkCream/20 space-y-1.5">
+                    <div class="flex items-center justify-between gap-2">
+                        <span class="text-[10px] font-extrabold tracking-wide text-espresso/55 dark:text-darkCream/55">${t.quizGradesLabel}</span>
+                        ${averageHTML}
+                    </div>
+                    <div class="flex flex-wrap items-center gap-1">
+                        ${chipsHTML}${restHTML}
+                    </div>
+                    ${adviceHTML}
+                </div>
+            `;
+        }
+
+        function sortQuizzes(list) {
+            return [...list].sort((a, b) => {
+                const aGraded = isQuizGraded(a) ? 1 : 0;
+                const bGraded = isQuizGraded(b) ? 1 : 0;
+                if (aGraded !== bGraded) return aGraded - bGraded;
+                const aDate = a.date || '';
+                const bDate = b.date || '';
+                return aGraded === 0 ? aDate.localeCompare(bDate) : bDate.localeCompare(aDate);
+            });
+        }
+
+        function getNextQuiz(subject) {
+            const list = (subject.quizzes || []).filter(q => !isQuizGraded(q));
+            if (list.length === 0) return null;
+            const sorted = [...list].sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+            const today = todayDateOnly();
+            const upcoming = sorted.find(q => {
+                const d = parseDateOnly(q.date);
+                return d && d >= today;
+            });
+            return upcoming || sorted[sorted.length - 1];
+        }
+
+        function renderQuizItem(quiz) {
+            const t = i18n[currentLang];
+            const isEditing = quizEditState && quizEditState.id === quiz.id && quizEditState.mode === 'edit';
+            const isGrading = quizEditState && quizEditState.id === quiz.id && quizEditState.mode === 'grade';
+            const safeDate = /^\d{4}-\d{2}-\d{2}$/.test(quiz.date || '') ? quiz.date : '';
+            const maxValue = (typeof quiz.maxGrade === 'number' && quiz.maxGrade > 0) ? quiz.maxGrade : null;
+
+            if (isEditing) {
+                return `
+                    <li class="rounded-xl border-2 border-terracotta bg-white dark:bg-darkBg shadow-xs p-3">
+                        <form onsubmit="saveQuizEdit(event, '${quiz.id}')" class="space-y-2">
+                            <input
+                                type="text"
+                                id="quiz-edit-title-${quiz.id}"
+                                value="${escapeHTML(quiz.title)}"
+                                required
+                                maxlength="60"
+                                placeholder="${t.quizTitlePlaceholder}"
+                                onkeydown="if(event.key === 'Escape'){ event.preventDefault(); cancelQuizEdit(); }"
+                                class="w-full px-3 py-1.5 rounded-lg bg-stoneBg/35 dark:bg-darkSurface border border-espresso/20 dark:border-darkCream/20 text-espresso dark:text-darkCream font-bold text-sm focus:outline-none focus:border-terracotta"
+                            >
+                            <div class="flex flex-wrap items-center gap-2">
+                                <input
+                                    type="date"
+                                    id="quiz-edit-date-${quiz.id}"
+                                    value="${safeDate}"
+                                    required
+                                    class="px-2.5 py-1.5 rounded-lg bg-stoneBg/35 dark:bg-darkSurface border border-espresso/20 dark:border-darkCream/20 text-espresso dark:text-darkCream font-semibold text-sm focus:outline-none focus:border-terracotta"
+                                >
+                                <input
+                                    type="number"
+                                    id="quiz-edit-max-${quiz.id}"
+                                    value="${maxValue !== null ? maxValue : ''}"
+                                    min="0"
+                                    step="0.5"
+                                    placeholder="${t.quizMaxPlaceholder}"
+                                    class="w-28 px-2.5 py-1.5 rounded-lg bg-stoneBg/35 dark:bg-darkSurface border border-espresso/20 dark:border-darkCream/20 text-espresso dark:text-darkCream placeholder-espresso/50 dark:placeholder-darkCream/45 font-semibold text-sm focus:outline-none focus:border-terracotta"
+                                >
+                                <div class="flex items-center gap-1 ms-auto">
+                                    <button type="submit" title="${t.saveTooltip}" aria-label="${t.saveTooltip}" class="p-2 rounded-lg bg-slateCool hover:bg-espresso text-cardSurface transition-colors shrink-0">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    </button>
+                                    <button type="button" onclick="cancelQuizEdit()" title="${t.cancelTooltip}" aria-label="${t.cancelTooltip}" class="p-2 rounded-lg bg-stoneBg/70 dark:bg-darkSurface hover:bg-blush/50 text-espresso dark:text-darkCream transition-colors shrink-0">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </li>
+                `;
+            }
+
+            const graded = isQuizGraded(quiz);
+            const days = daysUntil(quiz.date);
+            const quizPercent = getQuizPercent(quiz);
+            const gradeState = getGradeState(quizPercent);
+            const adviceText = getQuizAdvice(gradeState);
+
+            let statusText = '';
+            let statusClass = '';
+            if (graded) {
+                statusText = t.quizGraded;
+                statusClass = 'bg-slateCool/20 dark:bg-slateCool/25 text-slateCool';
+            } else if (days !== null && days < 0) {
+                statusText = formatQuizTiming(quiz);
+                statusClass = 'bg-blush/60 dark:bg-terracotta/30 text-espresso dark:text-blush border border-terracotta/40';
+            } else if (days === 0) {
+                statusText = formatQuizTiming(quiz);
+                statusClass = 'bg-espresso/10 dark:bg-darkCream/15 text-espresso dark:text-darkCream';
+            } else if (days !== null) {
+                statusText = formatQuizTiming(quiz);
+                statusClass = 'bg-stoneBg/70 dark:bg-darkSurface text-espresso/70 dark:text-darkCream/70';
+            }
+
+            const gradeHTML = graded
+                ? `<button type="button" onclick="startQuizGrade('${quiz.id}')" title="${t.quizEditGradeTooltip}" aria-label="${t.quizEditGradeTooltip}" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg ${getGradeStateClasses(gradeState).chip} hover:opacity-80 text-[11px] font-extrabold transition-opacity">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                        </svg>
+                        <span dir="ltr">${formatGradeValue(quiz)}</span>
+                   </button>`
+                : `<button type="button" onclick="startQuizGrade('${quiz.id}')" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg border border-dashed border-terracotta/70 dark:border-terracotta text-espresso dark:text-blush hover:bg-blush/30 dark:hover:bg-terracotta/20 text-[11px] font-extrabold transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                        </svg>
+                        ${t.quizRecordGrade}
+                   </button>`;
+
+            const adviceHTML = adviceText
+                ? `<p class="mt-2 flex items-start gap-1.5 px-2 py-1.5 rounded-lg border text-[11px] font-bold leading-relaxed ${getGradeStateClasses(gradeState).advice}">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
+                        </svg>
+                        <span>${adviceText}</span>
+                   </p>`
+                : '';
+
+            const gradeFormHTML = isGrading ? `
+                <form onsubmit="saveQuizGrade(event, '${quiz.id}')" class="mt-2.5 flex flex-wrap items-center gap-2 p-2.5 rounded-xl bg-stoneBg/40 dark:bg-darkBg/70 border border-terracotta/40">
+                    <span class="text-[11px] font-extrabold text-espresso dark:text-darkCream">${t.quizGradeLabel}</span>
+                    <input
+                        type="number"
+                        id="quiz-grade-input-${quiz.id}"
+                        value="${graded ? quiz.grade : ''}"
+                        min="0"
+                        ${maxValue !== null ? `max="${maxValue}"` : ''}
+                        step="0.5"
+                        required
+                        placeholder="0"
+                        class="w-20 px-2.5 py-1.5 rounded-lg bg-white dark:bg-darkSurface border border-espresso/20 dark:border-darkCream/20 text-espresso dark:text-darkCream font-bold text-sm focus:outline-none focus:border-terracotta"
+                    >
+                    ${maxValue !== null ? `<span class="text-[11px] font-extrabold text-espresso/70 dark:text-darkCream/70">${t.quizOutOfShort.replace('{n}', maxValue)}</span>` : ''}
+                    <button type="submit" title="${t.saveTooltip}" aria-label="${t.saveTooltip}" class="p-2 rounded-lg bg-slateCool hover:bg-espresso text-cardSurface transition-colors shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </button>
+                    <button type="button" onclick="cancelQuizEdit()" title="${t.cancelTooltip}" aria-label="${t.cancelTooltip}" class="p-2 rounded-lg bg-stoneBg/70 dark:bg-darkSurface hover:bg-blush/50 text-espresso dark:text-darkCream transition-colors shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                    ${graded ? `<button type="button" onclick="clearQuizGrade('${quiz.id}')" class="text-[11px] font-bold underline text-espresso/70 dark:text-darkCream/70 hover:text-espresso dark:hover:text-blush transition-colors">${t.quizClearGrade}</button>` : ''}
+                </form>` : '';
+
+            return `
+                <li class="rounded-xl border ${graded ? 'bg-slateCool/10 border-slateCool/35' : 'bg-white dark:bg-darkBg/90 border-espresso/15 dark:border-darkCream/15 hover:border-terracotta dark:hover:border-terracotta'} p-3 transition-all">
+                    <div class="flex items-start justify-between gap-2">
+                        <p class="text-sm font-bold leading-snug break-words min-w-0 text-espresso dark:text-darkCream">
+                            ${escapeHTML(quiz.title)}
+                        </p>
+                        <div class="flex items-center gap-0.5 shrink-0">
+                            <button type="button" onclick="startQuizEdit('${quiz.id}')" title="${t.editTooltip}" aria-label="${t.editTooltip}" class="p-1.5 rounded-lg text-espresso/50 dark:text-darkCream/50 hover:text-espresso dark:hover:text-darkCream hover:bg-stoneBg/60 dark:hover:bg-darkSurface transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                </svg>
+                            </button>
+                            <button type="button" onclick="deleteQuiz('${quiz.id}')" title="${t.deleteTooltip}" aria-label="${t.deleteTooltip}" class="p-1.5 rounded-lg text-espresso/45 dark:text-darkCream/45 hover:text-espresso dark:hover:text-blush hover:bg-blush/50 dark:hover:bg-terracotta/25 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="mt-2 flex flex-wrap items-center gap-1.5">
+                        ${safeDate ? `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-stoneBg/60 dark:bg-darkSurface text-espresso/75 dark:text-darkCream/75 text-[11px] font-extrabold">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            ${formatQuizDate(safeDate)}
+                        </span>` : ''}
+                        ${statusText ? `<span class="px-2 py-0.5 rounded-md text-[11px] font-extrabold ${statusClass}">${statusText}</span>` : ''}
+                        ${(maxValue !== null && !graded) ? `<span class="px-2 py-0.5 rounded-md bg-slateCool/15 dark:bg-slateCool/25 text-espresso/75 dark:text-darkCream/75 text-[11px] font-extrabold" title="${t.quizMaxLabel}">${t.quizOutOfShort.replace('{n}', maxValue)}</span>` : ''}
+                        <span class="ms-auto">${gradeHTML}</span>
+                    </div>
+
+                    ${adviceHTML}
+                    ${gradeFormHTML}
+                </li>
+            `;
+        }
+
+        function handleAddQuiz(event) {
+            event.preventDefault();
+            const subject = subjects.find(s => s.id === activeSubjectId);
+            if (!subject) return;
+
+            const titleInput = document.getElementById('quiz-title-input');
+            const dateInput = document.getElementById('quiz-date-input');
+            const maxInput = document.getElementById('quiz-max-input');
+
+            const title = titleInput.value.trim();
+            const date = dateInput.value;
+            if (!title || !date) return;
+
+            const maxParsed = parseFloat(maxInput.value);
+            const maxGrade = isFinite(maxParsed) && maxParsed > 0 ? maxParsed : null;
+
+            subject.quizzes.push({
+                id: 'quiz_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
+                title: title,
+                date: date,
+                maxGrade: maxGrade,
+                grade: null
+            });
+
+            saveSubjects(subjects);
+            titleInput.value = '';
+            dateInput.value = '';
+            maxInput.value = '';
+            quizEditState = null;
+            renderDetailView();
+        }
+
+        function startQuizEdit(quizId) {
+            quizEditState = { id: quizId, mode: 'edit' };
+            renderDetailView();
+        }
+
+        function startQuizGrade(quizId) {
+            quizEditState = { id: quizId, mode: 'grade' };
+            renderDetailView();
+        }
+
+        function cancelQuizEdit() {
+            quizEditState = null;
+            renderDetailView();
+        }
+
+        function saveQuizEdit(event, quizId) {
+            event.preventDefault();
+            const subject = subjects.find(s => s.id === activeSubjectId);
+            if (!subject) return;
+
+            const quiz = subject.quizzes.find(q => q.id === quizId);
+            if (!quiz) return;
+
+            const titleInput = document.getElementById(`quiz-edit-title-${quizId}`);
+            const dateInput = document.getElementById(`quiz-edit-date-${quizId}`);
+            const maxInput = document.getElementById(`quiz-edit-max-${quizId}`);
+            if (!titleInput || !dateInput) return;
+
+            const title = titleInput.value.trim();
+            const date = dateInput.value;
+            if (!title || !date) return;
+
+            const maxParsed = maxInput ? parseFloat(maxInput.value) : NaN;
+            quiz.title = title;
+            quiz.date = date;
+            quiz.maxGrade = isFinite(maxParsed) && maxParsed > 0 ? maxParsed : null;
+
+            saveSubjects(subjects);
+            quizEditState = null;
+            renderDetailView();
+        }
+
+        function saveQuizGrade(event, quizId) {
+            event.preventDefault();
+            const subject = subjects.find(s => s.id === activeSubjectId);
+            if (!subject) return;
+
+            const quiz = subject.quizzes.find(q => q.id === quizId);
+            if (!quiz) return;
+
+            const input = document.getElementById(`quiz-grade-input-${quizId}`);
+            if (!input) return;
+
+            const value = parseFloat(input.value);
+            if (!isFinite(value) || value < 0) return;
+
+            quiz.grade = quiz.maxGrade && value > quiz.maxGrade ? quiz.maxGrade : value;
+
+            saveSubjects(subjects);
+            quizEditState = null;
+            renderDetailView();
+        }
+
+        function clearQuizGrade(quizId) {
+            const subject = subjects.find(s => s.id === activeSubjectId);
+            if (!subject) return;
+
+            const quiz = subject.quizzes.find(q => q.id === quizId);
+            if (!quiz) return;
+
+            quiz.grade = null;
+            saveSubjects(subjects);
+            quizEditState = null;
+            renderDetailView();
+        }
+
+        function deleteQuiz(quizId) {
+            const subject = subjects.find(s => s.id === activeSubjectId);
+            if (!subject) return;
+
+            subject.quizzes = subject.quizzes.filter(q => q.id !== quizId);
+            if (quizEditState && quizEditState.id === quizId) {
+                quizEditState = null;
+            }
             saveSubjects(subjects);
             renderDetailView();
         }
